@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_project/Analytics.dart';
 import 'package:food_project/History.dart';
 
 import 'Category.dart';
@@ -171,7 +172,7 @@ class _Title_PageState extends State<Title_Page> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Profile())
+                    MaterialPageRoute(builder: (context) => Analytics())
                 );
                   },
                 child: const Icon(Icons.account_circle), ),

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Category.dart';
 import 'Food info.dart';
+import 'Intake Data.dart';
 import 'Meal Info.dart';
 
 class RecordedData{
@@ -17,7 +18,48 @@ class RecordedData{
     print("removing " + foods[index].name);
     foods.removeAt(index);
   }
+
+  //2
+  static MealData generateMealData() {
+    MealData m = new MealData(getTotalCalories(), getTotalCarbs(), getTotalSodium(), getTotalFat());
+    return m;
+  }
+
+  static double getTotalCalories() {
+    double total = 0;
+    for(FoodInfo f in foods) {
+      total += f.calories;
+    }
+    return total;
+  }
+
+  static double getTotalCarbs() {
+    double total = 0;
+    for(FoodInfo f in foods) {
+      total += f.carbohydrates;
+    }
+    return total;
+  }
+
+  //1. Make new method
+  static double getTotalSodium(){
+    double total = 0;
+    for(FoodInfo f in foods) {
+      total += f.sodium;
+    }
+    return total;
+  }
+
+  static double getTotalFat(){
+    double total = 0;
+    for(FoodInfo f in foods) {
+      total += f.fat;
+    }
+    return total;
+  }
 }
+
+
 
 class Meal extends StatefulWidget {
   const Meal({Key? key}) : super(key: key);
@@ -109,6 +151,8 @@ class _MealState extends State<Meal> {
                       heroTag: null,
                       onPressed: () {
                         _saveName();
+                        MealData m = RecordedData.generateMealData();
+                        TotalIntakeData.addInfoToday(DateFormat("yyyy-MM-dd").format(DateTime.now()), m);
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>MealInfo(mealID: generateMealName(),))
                         );
                       },
