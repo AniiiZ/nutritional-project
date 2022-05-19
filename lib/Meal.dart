@@ -21,7 +21,7 @@ class RecordedData{
 
   //2
   static MealData generateMealData() {
-    MealData m = new MealData(getTotalCalories(), getTotalCarbs(), getTotalSodium(), getTotalFat());
+    MealData m = new MealData(getTotalCalories(), getTotalCarbs(), getTotalSodium(), getTotalFat(),getTotalCholesterol(),getTotalPotassium());
     return m;
   }
 
@@ -57,7 +57,22 @@ class RecordedData{
     }
     return total;
   }
+  static double getTotalCholesterol(){
+    double total = 0;
+    for(FoodInfo f in foods) {
+      total += f.cholesterol;
+    }
+    return total;
+  }
+  static double getTotalPotassium(){
+    double total = 0;
+    for(FoodInfo f in foods) {
+      total += f.potassium;
+    }
+    return total;
 }
+}
+
 
 
 

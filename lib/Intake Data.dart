@@ -4,6 +4,8 @@ class Intake{
   double carbohydrates = 0;
   double sodium = 0;
   double fat = 0;
+  double cholesterol = 0;
+  double potassium = 0;
 
   void updateCalories (double newCal) {
     calories += newCal;
@@ -18,6 +20,12 @@ class Intake{
   void updateFat(double newFat) {
     sodium += newFat;
   }
+  void updateCholesterol(double newCholesterol) {
+    sodium += newCholesterol;
+  }
+  void updatePotassium(double newPotassium) {
+    sodium += newPotassium;
+  }
 
   //7: Add to toString
   @override
@@ -25,7 +33,9 @@ class Intake{
    return "calories: " + calories.toString() +
        ", carbs: " + carbohydrates.toString() +
        ", sodium: " + sodium.toString() +
-       ", fat: " + fat.toString();
+       ", fat: " + fat.toString() +
+   ", cholesterol: " + cholesterol.toString() +
+   ", potassium: " + potassium.toString();
   }
 }
 class MealData{
@@ -34,9 +44,11 @@ class MealData{
   double totalCarbohydrates;
   double totalSodium;
   double totalFat;
+  double totalCholesterol;
+  double totalPotassium;
 
   //4: Add to constructor
-  MealData(this.totalCalories, this.totalCarbohydrates, this.totalSodium, this.totalFat);
+  MealData(this.totalCalories, this.totalCarbohydrates, this.totalSodium, this.totalFat, this.totalCholesterol, this.totalPotassium);
 }
 
 class TotalIntakeData{
@@ -51,6 +63,8 @@ class TotalIntakeData{
     //8: update
     userIntakes[day]!.updateSodium(m.totalSodium);
     userIntakes[day]!.updateSodium(m.totalFat);
+    userIntakes[day]!.updateSodium(m.totalCholesterol);
+    userIntakes[day]!.updateSodium(m.totalPotassium;
     print(userIntakes);
   }
   static double getAverageDailyCalories() {
@@ -79,6 +93,20 @@ class TotalIntakeData{
     num avg = 0;
     userIntakes.forEach((key, value) {
       avg += value.fat;
+    });
+    return avg/userIntakes.length;
+  }
+  static double getAverageDailyCholesterol(){
+    num avg = 0;
+    userIntakes.forEach((key, value) {
+      avg += value.cholesterol;
+    });
+    return avg/userIntakes.length;
+  }
+  static double getAverageDailyPotassium(){
+    num avg = 0;
+    userIntakes.forEach((key, value) {
+      avg += value.potassium;
     });
     return avg/userIntakes.length;
   }

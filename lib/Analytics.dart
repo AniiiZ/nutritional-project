@@ -23,6 +23,8 @@ class _AnalyticsState extends State<Analytics> {
             //10: add here
             Text(TotalIntakeData.getAverageDailySodium().toString()),
             Text(TotalIntakeData.getAverageDailyFat().toString()),
+            Text(TotalIntakeData.getAverageDailyPotassium().toString()),
+            Text(TotalIntakeData.getAverageDailyCholesterol().toString()),
           ],
         )
       ),
