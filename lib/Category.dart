@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_project/Basic%20Widgets.dart';
 import 'package:food_project/Title_Page.dart';
 
 import 'Classification.dart';
@@ -50,9 +51,6 @@ class _CategoryState extends State<Category> {
         itemCount: entries.length,
         itemBuilder: (BuildContext context, int index) {
           return ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.amber[colorCodes[index]]),
-              ),
               onPressed: () {
                 RecordedData.changeTypeOfMeal(entries[index]);
                 Navigator.push(
@@ -60,8 +58,8 @@ class _CategoryState extends State<Category> {
                   MaterialPageRoute(builder: (context) => Meal()),
                 );
               },
-              child: Container(
-                child: Row(
+              child: createRoundedCornerContainer(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(

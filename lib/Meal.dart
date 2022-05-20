@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food_project/Basic%20Widgets.dart';
 import 'package:food_project/Classification.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'Analysis.dart';
 import 'Category.dart';
 import 'Food info.dart';
 import 'Intake Data.dart';
@@ -70,7 +72,7 @@ class RecordedData{
       total += f.potassium;
     }
     return total;
-}
+  }
 }
 
 
@@ -102,6 +104,17 @@ class _MealState extends State<Meal> {
       print("Confirmed " + foodNameList);
     }
   }
+
+  Future<void> _saveMeal() async{
+    await _saveName();
+    MealData m = RecordedData.generateMealData();
+    TotalIntakeData.addInfoToday(DateFormat("yyyy-MM-dd").format(DateTime.now()), m);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MealInfo(mealID: generateMealName())),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -123,10 +136,8 @@ class _MealState extends State<Meal> {
             padding: const EdgeInsets.all(15),
             itemCount: RecordedData.foods.length,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                height: 50,
-                color: Colors.greenAccent,
-                child: Row(
+              return createRoundedCornerContainer(
+                Row(
                   children: [
                     ElevatedButton.icon(
                         onPressed: () {
@@ -164,13 +175,7 @@ class _MealState extends State<Meal> {
                   if (RecordedData.foods.length > 0)
                     FloatingActionButton(
                       heroTag: null,
-                      onPressed: () {
-                        _saveName();
-                        MealData m = RecordedData.generateMealData();
-                        TotalIntakeData.addInfoToday(DateFormat("yyyy-MM-dd").format(DateTime.now()), m);
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MealInfo(mealID: generateMealName(),))
-                        );
-                      },
+                      onPressed: _saveMeal,
                       child: Icon(Icons.check),
                     ),
                 ],

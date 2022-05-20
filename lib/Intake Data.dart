@@ -62,9 +62,9 @@ class TotalIntakeData{
     userIntakes[day]!.updateCarbs(m.totalCarbohydrates);
     //8: update
     userIntakes[day]!.updateSodium(m.totalSodium);
-    userIntakes[day]!.updateSodium(m.totalFat);
-    userIntakes[day]!.updateSodium(m.totalCholesterol);
-    userIntakes[day]!.updateSodium(m.totalPotassium;
+    userIntakes[day]!.updateFat(m.totalFat);
+    userIntakes[day]!.updateCholesterol(m.totalCholesterol);
+    userIntakes[day]!.updatePotassium(m.totalPotassium);
     print(userIntakes);
   }
   static double getAverageDailyCalories() {

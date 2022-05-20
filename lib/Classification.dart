@@ -30,8 +30,8 @@ class _ClassificationState extends State<Classification> {
 
   FoodInfo? foodInfo;
   
-  FoodInfo getCorrespondingFood(){
-    String classification = _listResult![0]["label"];
+  FoodInfo getCorrespondingFood(List<dynamic> l){
+    String classification = l[0]["label"];
     switch (classification) {
       case "0 Steak":
         return FoodDictionary.allFoods["Steak"]!;
@@ -95,16 +95,14 @@ class _ClassificationState extends State<Classification> {
       });
     });
   }
-
+  void processImage(PickedFile i) {
+    _imageFile = i;
+    _image = File(i!.path);
+    _imageWidget = Image.file(_image!);
+  }
   void _imageSelection() async {
-    var imageFile = await ImagePicker().getImage(source: ImageSource.gallery);
-    setState(() {
-      _loading = true;
-      _imageFile = imageFile;
-      _image = File(imageFile!.path);
-      _imageWidget = Image.file(_image!);
-    });
-    _imageClasification(imageFile!);
+    var imageFile = await ImagePicker().getImage(source: ImageSource.gallery).
+    then((value) => _imageClasification(value!));
   }
 
   void _imageClasification(PickedFile image) async {
@@ -114,13 +112,17 @@ class _ClassificationState extends State<Classification> {
       threshold: 0.5,
       imageMean: 127.5,
       imageStd: 127.5,
+    ).
+    then((value) {
+      setState(() {
+        if (value == null) print("did not successfully load");
+        print(value);
+        _listResult = value;
+        processImage(image);
+        foodInfo = getCorrespondingFood(value!);
+      });
+    }
     );
-    setState(() {
-      _loading = false;
-      _listResult = output;
-      print(_listResult);
-      foodInfo = getCorrespondingFood();
-    });
   }
 
   @override
@@ -171,7 +173,7 @@ class _ClassificationState extends State<Classification> {
               FloatingActionButton(
                 heroTag: null,
                 onPressed: (){
-                  RecordedData.foods.add(getCorrespondingFood());
+                  RecordedData.foods.add(getCorrespondingFood(_listResult!));
                   Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => Meal()));
