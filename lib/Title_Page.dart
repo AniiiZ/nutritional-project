@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_project/Analytics.dart';
 import 'package:food_project/History.dart';
 
+import 'Basic Widgets.dart';
 import 'Category.dart';
 import 'Profile.dart';
 import 'Select Meal Date.dart';
@@ -39,18 +40,20 @@ class _Title_PageState extends State<Title_Page> {
                 children: [
                  Expanded(
               child: Container(
-                   margin: EdgeInsets.only(top: 40.0, bottom: 40.0, left: 10.0),
-                    child: ElevatedButton(
-                        onPressed: () {  },
-                        child: Column(
+                   margin: EdgeInsets.only(top: 10.0, bottom: 30.0),
+                        child: createRoundedCornerContainer(
+                          Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children:[Text("Diet Rating:",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40.0,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          children:[Container(
+                            margin: EdgeInsets.only(top: 10.0, bottom: 30.0, left: 10.0),
+                            child: Text("Diet Rating:",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 40.0,
+                                fontWeight: FontWeight.w500,
+                              ),
                       ),
+                          ),
                     ],
                         ),
                       ),
@@ -58,25 +61,27 @@ class _Title_PageState extends State<Title_Page> {
                   ),
                      Expanded(
                        child: Container(
-                     margin: EdgeInsets.only(top: 40.0, bottom: 40.0, right: 10.0),
-                      child: ElevatedButton(
-                        onPressed: () {  },
-                        child: Column(
+                     margin: EdgeInsets.only(top: 10.0, bottom: 30.0),
+                        child: createRoundedCornerContainer(Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [Text("Advice:",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40.0,
-                            fontWeight: FontWeight.w500,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 10.0, bottom: 30.0, left: 10.0),
+                            child: Text("Advice:",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.w500,
                         ),
                         ),
+                          ),
     ],
     ),
                       ),
                     ),
-                     ),
-                ],
                 ),
+    ],
+              ),
             ),
             Expanded(
                 flex:5,

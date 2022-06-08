@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Basic Widgets.dart';
 import 'Food Dictionary.dart';
 import 'Food info.dart';
+import 'Title_Page.dart';
 class MealInfo extends StatefulWidget {
 
   final String mealID;
@@ -93,7 +95,7 @@ class _MealInfoState extends State<MealInfo> {
       child: Column(
         children: [
           Text(f.name),
-          Text(f.calories.toString()),
+          Text("kcal: " + f.calories.toString()),
         ]
       )
     );
@@ -153,19 +155,19 @@ class _MealInfoState extends State<MealInfo> {
       appBar: AppBar(
         title: Text(widget.mealID),
       ),
-      body: Center(
-        child: Column(
+      body: Column(
           children: [
             Expanded(
               flex: 50,
-              child: ListView.separated(
+              child: createRoundedCornerContainer(ListView.separated(
                 padding: const EdgeInsets.all(8),
                 itemCount: mealInfo.length,
                 itemBuilder: (BuildContext context, int index) {
                   return createFoodInfoWidget(mealInfo[index]);
-                },
+                  },
                 separatorBuilder: (BuildContext context, int index) => const Divider(),
               ),
+            ),
             ),
             Expanded(
               flex: 50,
@@ -173,22 +175,53 @@ class _MealInfoState extends State<MealInfo> {
                   children: [
                     Text("Analysis",
                     style: TextStyle(
+                      color: Colors.teal,
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),
                     ),
-                    Text("Total calories: " + getCalorieTotal().toString() + " kcal"),
-                    Text("Total cholesterol: " + getCholesterolTotal().toString() + " mg"),
-                    Text("Total fat: " + getFatTotal().toString() + " g"),
-                    Text("Total carbohydrate: " + getCarbohydratesTotal().toString() + " g"),
-                    Text("Total sodium: " + getCarbohydratesTotal().toString() + " mg"),
-                    Text("Total potassium: " + getCarbohydratesTotal().toString() + " mg"),
+                    Text("Total calories: " + getCalorieTotal().toString() + " kcal",
+                      style: TextStyle(
+                        color: Colors.teal,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400),
+                    ),
+                    Text("Total cholesterol: " + getCholesterolTotal().toString() + " mg",
+                      style: TextStyle(
+                        color: Colors.teal,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400),
+                    ),
+                    Text("Total fat: " + getFatTotal().toString() + " g",
+                      style: TextStyle(
+                          color: Colors.teal,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    Text("Total carbohydrate: " + getCarbohydratesTotal().toString() + " g",
+                      style: TextStyle(
+                          color: Colors.teal,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    Text("Total sodium: " + getCarbohydratesTotal().toString() + " mg",
+                      style: TextStyle(
+                          color: Colors.teal,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    ElevatedButton(onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Title_Page())
+                      );
+                    },
+                      child: const Icon(Icons.home), )
                   ],
                 )
-            )
+            ),
           ],
-        )
-      )
+        ),
     );
   }
 }

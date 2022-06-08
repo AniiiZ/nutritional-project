@@ -1,43 +1,5 @@
-class Intake{
-  //5: Add new attribute
-  double calories = 0;
-  double carbohydrates = 0;
-  double sodium = 0;
-  double fat = 0;
-  double cholesterol = 0;
-  double potassium = 0;
+import 'package:shared_preferences/shared_preferences.dart';
 
-  void updateCalories (double newCal) {
-    calories += newCal;
-  }
-  void updateCarbs(double newCarbs) {
-    carbohydrates += newCarbs;
-  }
-  //6: Add update
-  void updateSodium(double newSodium) {
-    sodium += newSodium;
-  }
-  void updateFat(double newFat) {
-    sodium += newFat;
-  }
-  void updateCholesterol(double newCholesterol) {
-    sodium += newCholesterol;
-  }
-  void updatePotassium(double newPotassium) {
-    sodium += newPotassium;
-  }
-
-  //7: Add to toString
-  @override
-  String toString() {
-   return "calories: " + calories.toString() +
-       ", carbs: " + carbohydrates.toString() +
-       ", sodium: " + sodium.toString() +
-       ", fat: " + fat.toString() +
-   ", cholesterol: " + cholesterol.toString() +
-   ", potassium: " + potassium.toString();
-  }
-}
 class MealData{
   //3: Add attribute
   double totalCalories;
@@ -52,32 +14,49 @@ class MealData{
 }
 
 class TotalIntakeData{
-  static Map<String, Intake> userIntakes = new Map();
-  static void addInfoToday(String day, MealData m) {
+  static Map<String, MealData> userIntakes = new Map();
+  static Future<void> addInfoToday(String day, MealData m) async{
     if (!userIntakes.containsKey(day))
     {
-      userIntakes[day] = new Intake();
+      userIntakes[day] = m;
     }
-    userIntakes[day]!.updateCalories(m.totalCalories);
-    userIntakes[day]!.updateCarbs(m.totalCarbohydrates);
-    //8: update
-    userIntakes[day]!.updateSodium(m.totalSodium);
-    userIntakes[day]!.updateFat(m.totalFat);
-    userIntakes[day]!.updateCholesterol(m.totalCholesterol);
-    userIntakes[day]!.updatePotassium(m.totalPotassium);
-    print(userIntakes);
+    else {
+      userIntakes[day]?.totalCalories += m.totalCalories;
+      userIntakes[day]?.totalCarbohydrates += m.totalCarbohydrates;
+      userIntakes[day]?.totalCholesterol += m.totalCholesterol;
+      userIntakes[day]?.totalFat += m.totalFat;
+      userIntakes[day]?.totalPotassium+= m.totalPotassium;
+      userIntakes[day]?.totalSodium += m.totalSodium;
+    }
+  await saveInformation();
+  }
+  static Future<void> saveInformation () async{
+    final prefs = await SharedPreferences.getInstance();
+    double totalCals = getAverageDailyCalories();
+    double totalCarbs = getAverageDailyCarbs();
+    double totalCholesterol = getAverageDailyCholesterol();
+    double totalFat = getAverageDailyFat();
+    double totalPotassium = getAverageDailyPotassium();
+    double totalSodium = getAverageDailySodium();
+
+    await prefs.setDouble("Average Calories", totalCals);
+    await prefs.setDouble("Average Carbohydrates", totalCarbs);
+    await prefs.setDouble("Average Cholesterol", totalCholesterol);
+    await prefs.setDouble("Average Fat", totalFat);
+    await prefs.setDouble("Average Potassium", totalPotassium);
+    await prefs.setDouble("Average Sodium", totalSodium);
   }
   static double getAverageDailyCalories() {
     num avg = 0;
     userIntakes.forEach((key, value) {
-      avg += value.calories;
+      avg += value.totalCalories;
     });
     return avg/userIntakes.length;
   }
   static double getAverageDailyCarbs() {
     num avg = 0;
     userIntakes.forEach((key, value) {
-      avg += value.carbohydrates;
+      avg += value.totalCarbohydrates;
     });
     return avg/userIntakes.length;
   }
@@ -85,28 +64,28 @@ class TotalIntakeData{
   static double getAverageDailySodium(){
     num avg = 0;
     userIntakes.forEach((key, value) {
-      avg += value.sodium;
+      avg += value.totalSodium;
     });
     return avg/userIntakes.length;
   }
   static double getAverageDailyFat(){
     num avg = 0;
     userIntakes.forEach((key, value) {
-      avg += value.fat;
+      avg += value.totalFat;
     });
     return avg/userIntakes.length;
   }
   static double getAverageDailyCholesterol(){
     num avg = 0;
     userIntakes.forEach((key, value) {
-      avg += value.cholesterol;
+      avg += value.totalCholesterol;
     });
     return avg/userIntakes.length;
   }
   static double getAverageDailyPotassium(){
     num avg = 0;
     userIntakes.forEach((key, value) {
-      avg += value.potassium;
+      avg += value.totalPotassium;
     });
     return avg/userIntakes.length;
   }

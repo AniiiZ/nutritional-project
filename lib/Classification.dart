@@ -105,13 +105,18 @@ class _ClassificationState extends State<Classification> {
     then((value) => _imageClasification(value!));
   }
 
+  void _cameraSelection() async {
+    var imageFile = await ImagePicker().getImage(source: ImageSource.camera).
+    then((value) => _imageClasification(value!));
+  }
+
   void _imageClasification(PickedFile image) async {
     var output = await Tflite.runModelOnImage(
       path: image.path,
       numResults: 2,
-      threshold: 0.5,
-      imageMean: 127.5,
-      imageStd: 127.5,
+      threshold: 0.1,
+      imageMean: 0,
+      imageStd: 255,
     ).
     then((value) {
       setState(() {
@@ -142,7 +147,12 @@ class _ClassificationState extends State<Classification> {
           children: [
             Container(
               child: _image == null
-                  ? Text("No images selected")
+                  ? Text("No images selected",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20.0,
+              fontWeight: FontWeight.w400),
+              )
                   :Container(
                 constraints: BoxConstraints(
                     maxHeight: MediaQuery.of(context).size.height / 2),
@@ -155,12 +165,42 @@ class _ClassificationState extends State<Classification> {
             _listResult != null
                 ? Column(
               children: [
-                Text(foodInfo!.name),
-                Text('${_listResult![0]["confidence"]}'),
-                Text(foodInfo!.calories.toString()),
-                Text(foodInfo!.cholesterol.toString()),
-                Text(foodInfo!.fat.toString()),
-                Text(foodInfo!.carbohydrates.toString())
+                Text(foodInfo!.name,
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text('${_listResult![0]["confidence"]}',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text("kcal" + foodInfo!.calories.toString(),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text("mg: " + foodInfo!.cholesterol.toString(),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text("gram: " + foodInfo!.fat.toString(),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text("gram: " + foodInfo!.carbohydrates.toString(),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                )
               ],
             )
                 : Container(),
@@ -168,6 +208,11 @@ class _ClassificationState extends State<Classification> {
               heroTag: null,
               onPressed: _imageSelection,
               child: Icon(Icons.add)
+            ),
+            FloatingActionButton(
+                heroTag: null,
+                onPressed: _cameraSelection,
+                child: Icon(Icons.add_a_photo_rounded)
             ),
             if(foodInfo!=null)
               FloatingActionButton(

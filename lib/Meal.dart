@@ -148,8 +148,13 @@ class _MealState extends State<Meal> {
                         icon: Icon(Icons.clear),
                         label: Text(""),
                     ),
-                    Text(RecordedData.foods[index].name),
-                  ],
+                    Text(RecordedData.foods[index].name,
+              style: TextStyle(
+              color: Colors.white,
+              fontSize: 25.0,
+              fontWeight: FontWeight.w400,),
+              ),
+              ],
                 ),
               );
             },

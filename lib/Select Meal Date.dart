@@ -16,7 +16,7 @@ class _SelectMealDateState extends State<SelectMealDate> {
   bool invalidMeal = false;
 
   String generateSelectionName() {
-    return DateFormat("yyyy-MM-dd").format(selectedDate) + " " + mealType;
+    return DateFormat("MM-dd-yyyy").format(selectedDate) + " " + mealType;
   }
 
   Future<void> searchForSelectedMeal(String requestedMeal) async {
