@@ -49,8 +49,7 @@ class _AnalysisState extends State<Analysis> {
                               fontSize: 30.0,
                               fontWeight: FontWeight.w400,
                             ),
-                          ),
-                        ),
+                          ),),
                       ),
                     );
                   },

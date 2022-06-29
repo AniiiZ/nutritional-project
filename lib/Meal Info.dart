@@ -83,8 +83,28 @@ class _MealInfoState extends State<MealInfo> {
         return FoodDictionary.allFoods["Pizza"]!;
       case "Cheese":
         return FoodDictionary.allFoods["Cheese"]!;
+      case "Almond":
+        return FoodDictionary.allFoods["Almond"]!;
+      case "Bacon":
+        return FoodDictionary.allFoods["Bacon"]!;
+      case "Bread":
+        return FoodDictionary.allFoods["Bread"]!;
+      case "Broccoli":
+        return FoodDictionary.allFoods["Broccoli"]!;
+      case "French Fries":
+        return FoodDictionary.allFoods["French Fries"]!;
+      case "Popcorn":
+        return FoodDictionary.allFoods["Popcorn"]!;
+      case "Salmon":
+        return FoodDictionary.allFoods["Salmon"]!;
+      case "Shrimp":
+        return FoodDictionary.allFoods["Shrimp"]!;
+      case "Watermelon":
+        return FoodDictionary.allFoods["Watermelon"]!;
+      case "Yogurt":
+        return FoodDictionary.allFoods["Yogurt"]!;
       default:
-        return FoodInfo("Null", 0, 0, 0, 0, 0, 0);
+        return FoodInfo("Null", 0, 0, 0, 0, 0, 0, 0, 0);
     }
   }
 
@@ -145,6 +165,22 @@ class _MealInfoState extends State<MealInfo> {
     double total = 0;
     for(FoodInfo f in mealInfo){
       total += f.potassium;
+    }
+    return total;
+  }
+
+  double getProteinTotal(){
+    double total = 0;
+    for(FoodInfo f in mealInfo){
+      total += f.protein;
+    }
+    return total;
+  }
+
+  double getVCTotal(){
+    double total = 0;
+    for(FoodInfo f in mealInfo){
+      total += f.vc;
     }
     return total;
   }

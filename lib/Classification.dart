@@ -73,8 +73,28 @@ class _ClassificationState extends State<Classification> {
         return FoodDictionary.allFoods["Pizza"]!;
       case "19 Cheese":
         return FoodDictionary.allFoods["Cheese"]!;
+      case "20 Almond":
+        return FoodDictionary.allFoods["Almond"]!;
+      case "21 Bacon":
+        return FoodDictionary.allFoods["Bacon"]!;
+      case "22 Bread":
+        return FoodDictionary.allFoods["Bread"]!;
+      case "23 Broccoli":
+        return FoodDictionary.allFoods["Broccoli"]!;
+      case "24 French Fries":
+        return FoodDictionary.allFoods["French Fries"]!;
+      case "25 Popcorn":
+        return FoodDictionary.allFoods["Popcorn"]!;
+      case "26 Salmon":
+        return FoodDictionary.allFoods["Salmon"]!;
+      case "27 Shrimp":
+        return FoodDictionary.allFoods["Shrimp"]!;
+      case "28 Watermelon":
+        return FoodDictionary.allFoods["Watermelon"]!;
+      case "29 Yogurt":
+        return FoodDictionary.allFoods["Yogurt"]!;
       default:
-        return FoodInfo("Null", 0, 0, 0, 0, 0, 0);
+        return FoodInfo("Null", 0, 0, 0, 0, 0, 0, 0, 0);
     }
   }
   
@@ -159,7 +179,9 @@ class _ClassificationState extends State<Classification> {
                 decoration: BoxDecoration(
                   border: Border.all(),
                 ),
-                child: _imageWidget,
+                child: Container(
+                    child: _imageWidget
+                ),
               ),
             ),
             _listResult != null
@@ -171,63 +193,94 @@ class _ClassificationState extends State<Classification> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text('${_listResult![0]["confidence"]}',
+                Text("Calories kcal" + foodInfo!.calories.toString(),
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                Text("kcal" + foodInfo!.calories.toString(),
+                Text("Cholesterol mg: " + foodInfo!.cholesterol.toString(),
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                Text("mg: " + foodInfo!.cholesterol.toString(),
+                Text("Fat gram: " + foodInfo!.fat.toString(),
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                Text("gram: " + foodInfo!.fat.toString(),
+                Text("Carbs gram: " + foodInfo!.carbohydrates.toString(),
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                Text("gram: " + foodInfo!.carbohydrates.toString(),
+                Text("Sodium mg: " + foodInfo!.sodium.toString(),
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.w400,
                   ),
-                )
+                ),
+                Text("Potassium gram: " + foodInfo!.potassium.toString(),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text("Protein gram: " + foodInfo!.protein.toString(),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text("Vitamin C mg: " + foodInfo!.vc.toString(),
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ],
             )
                 : Container(),
-            FloatingActionButton(
-              heroTag: null,
-              onPressed: _imageSelection,
-              child: Icon(Icons.add)
-            ),
-            FloatingActionButton(
-                heroTag: null,
-                onPressed: _cameraSelection,
-                child: Icon(Icons.add_a_photo_rounded)
-            ),
-            if(foodInfo!=null)
-              FloatingActionButton(
-                heroTag: null,
-                onPressed: (){
-                  RecordedData.foods.add(getCorrespondingFood(_listResult!));
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Meal()));
-                },
-                child: Icon(Icons.check)
-              )
           ],
         ),
       ),
+        floatingActionButton: Stack(
+            fit: StackFit.expand,
+            children: [
+              Positioned(
+                bottom: 10,
+                right: 10,
+                child: Row(
+                  children: [
+                    FloatingActionButton(
+                        heroTag: null,
+                        onPressed: _imageSelection,
+                        child: Icon(Icons.add)
+                    ),
+                    FloatingActionButton(
+                        heroTag: null,
+                        onPressed: _cameraSelection,
+                        child: Icon(Icons.add_a_photo_rounded)
+                    ),
+                    if(foodInfo!=null)
+                      FloatingActionButton(
+                          heroTag: null,
+                          onPressed: (){
+                            RecordedData.foods.add(getCorrespondingFood(_listResult!));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Meal()));
+                          },
+                          child: Icon(Icons.check)
+                      )
+                  ],
+                ),
+              ),
+            ]
+        ),
     );
   }
 }

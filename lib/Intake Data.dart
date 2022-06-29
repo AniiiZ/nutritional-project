@@ -8,9 +8,11 @@ class MealData{
   double totalFat;
   double totalCholesterol;
   double totalPotassium;
+  double totalProtein;
+  double totalVc;
 
   //4: Add to constructor
-  MealData(this.totalCalories, this.totalCarbohydrates, this.totalSodium, this.totalFat, this.totalCholesterol, this.totalPotassium);
+  MealData(this.totalCalories, this.totalCarbohydrates, this.totalSodium, this.totalFat, this.totalCholesterol, this.totalPotassium, this.totalProtein, this.totalVc);
 }
 
 class TotalIntakeData{
@@ -27,6 +29,8 @@ class TotalIntakeData{
       userIntakes[day]?.totalFat += m.totalFat;
       userIntakes[day]?.totalPotassium+= m.totalPotassium;
       userIntakes[day]?.totalSodium += m.totalSodium;
+      userIntakes[day]?.totalProtein += m.totalProtein;
+      userIntakes[day]?.totalVc += m.totalVc;
     }
   await saveInformation();
   }
@@ -38,6 +42,8 @@ class TotalIntakeData{
     double totalFat = getAverageDailyFat();
     double totalPotassium = getAverageDailyPotassium();
     double totalSodium = getAverageDailySodium();
+    double totalProtein = getAverageDailyProtein();
+    double totalVc = getAverageDailyVc();
 
     await prefs.setDouble("Average Calories", totalCals);
     await prefs.setDouble("Average Carbohydrates", totalCarbs);
@@ -45,6 +51,8 @@ class TotalIntakeData{
     await prefs.setDouble("Average Fat", totalFat);
     await prefs.setDouble("Average Potassium", totalPotassium);
     await prefs.setDouble("Average Sodium", totalSodium);
+    await prefs.setDouble("Average Protein", totalProtein);
+    await prefs.setDouble("Average Vitamin C", totalVc);
   }
   static double getAverageDailyCalories() {
     num avg = 0;
@@ -86,6 +94,20 @@ class TotalIntakeData{
     num avg = 0;
     userIntakes.forEach((key, value) {
       avg += value.totalPotassium;
+    });
+    return avg/userIntakes.length;
+  }
+  static double getAverageDailyProtein(){
+    num avg = 0;
+    userIntakes.forEach((key, value) {
+      avg += value.totalProtein;
+    });
+    return avg/userIntakes.length;
+  }
+  static double getAverageDailyVc(){
+    num avg = 0;
+    userIntakes.forEach((key, value) {
+      avg += value.totalVc;
     });
     return avg/userIntakes.length;
   }

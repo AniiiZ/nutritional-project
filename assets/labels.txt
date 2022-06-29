@@ -18,3 +18,13 @@
 17 Ice Cream
 18 Pizza
 19 Cheese
+20 Almond
+21 Bacon
+22 Bread
+23 Broccoli
+24 French Fries
+25 Popcorn
+26 Salmon
+27 Shrimp
+28 Watermelon
+29 Yogurt

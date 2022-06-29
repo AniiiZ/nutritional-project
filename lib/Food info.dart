@@ -6,6 +6,8 @@ class FoodInfo{
   double carbohydrates;
   double sodium;
   double potassium;
+  double protein;
+  double vc;
 
   FoodInfo(
       this.name,
@@ -15,5 +17,7 @@ class FoodInfo{
       this.carbohydrates,
       this.sodium,
       this.potassium,
+      this.protein,
+      this.vc,
       );
 }

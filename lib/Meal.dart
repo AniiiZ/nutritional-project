@@ -23,7 +23,7 @@ class RecordedData{
 
   //2
   static MealData generateMealData() {
-    MealData m = new MealData(getTotalCalories(), getTotalCarbs(), getTotalSodium(), getTotalFat(),getTotalCholesterol(),getTotalPotassium());
+    MealData m = new MealData(getTotalCalories(), getTotalCarbs(), getTotalSodium(), getTotalFat(),getTotalCholesterol(),getTotalPotassium(), getTotalProtein(), getTotalVc());
     return m;
   }
 
@@ -70,6 +70,20 @@ class RecordedData{
     double total = 0;
     for(FoodInfo f in foods) {
       total += f.potassium;
+    }
+    return total;
+  }
+  static double getTotalProtein(){
+    double total = 0;
+    for(FoodInfo f in foods) {
+      total += f.protein;
+    }
+    return total;
+  }
+  static double getTotalVc(){
+    double total = 0;
+    for(FoodInfo f in foods) {
+      total += f.vc;
     }
     return total;
   }
