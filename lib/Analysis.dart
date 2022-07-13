@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Title_Page.dart';
+import 'Analytics.dart';
 class Analysis extends StatefulWidget {
   const Analysis({Key? key}) : super(key: key);
 
@@ -87,7 +87,7 @@ class _AnalysisState extends State<Analysis> {
                           child: ElevatedButton(
                               onPressed: () {Navigator.push(
                                     context,
-                              MaterialPageRoute(builder: (context) => Title_Page())
+                              MaterialPageRoute(builder: (context) => Analytics())
                                        );
                                 }, child: const Icon(Icons.water_damage_rounded),
                           ),

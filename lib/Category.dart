@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_project/Analytics.dart';
 import 'package:food_project/Basic%20Widgets.dart';
-import 'package:food_project/Title_Page.dart';
 
 import 'Classification.dart';
 import 'Meal.dart';
@@ -21,7 +21,7 @@ class _CategoryState extends State<Category> {
       onWillPop: () async{
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Title_Page()),
+          MaterialPageRoute(builder: (context) => Analytics()),
         );
         return false;
       },

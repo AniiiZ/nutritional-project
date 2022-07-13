@@ -44,70 +44,148 @@ class _AnalyticsState extends State<Analytics> {
     double r_protein = 80;
     double r_vc = 100;
 
-    double calorieGrade = averageCalories()/r_calories;
-    double carbGrade = averageCarbs()/r_carbs;
-    double sodiumGrade = averageSodium()/r_sodium;
-    double cholesterolGrade = averageCholesterol()/r_cholesterol;
-    double fatGrade = averageFat()/r_fat;
-    double potassiumGrade = averagePotassium()/r_potassium;
+    double calorieGrade = cal/r_calories;
+    double carbGrade = carbs/r_carbs;
+    double sodiumGrade = sod/r_sodium;
+    double cholesterolGrade = chol/r_cholesterol;
+    double fatGrade = fat/r_fat;
+    double potassiumGrade = pot/r_potassium;
+    double proteinGrade = pro/r_protein;
+    double vcGrade = vc/r_vc;
+
+    print("calorie grade: " + calorieGrade.toString());
+    print("carbohydrate grade: " + carbGrade.toString());
+    print("fat grade: " + fatGrade.toString());
+    print("protein grade: " + proteinGrade.toString());
+    print("sodium grade: " + sodiumGrade.toString());
+    print("potassium grade: " + potassiumGrade.toString());
+    print("cholesterol grade: " + cholesterolGrade.toString());
+    print("vc grade: " + vcGrade.toString());
+
+
 
     double totalGrade = calorieGrade + carbGrade + sodiumGrade + cholesterolGrade + fatGrade + potassiumGrade;
-    double averageGrade = totalGrade/6;
+    double averageGrade = totalGrade/8;
+    print("average grade: " + averageGrade.toString());
     return averageGrade;
+  }
+
+  String getLetterGrade(double grade)
+  {
+    if (grade > 0.9) return "A - Wow! You are eating awesome!";
+    else if (grade > 0.75) return "B - Great! You are just a step away!";
+    else if (grade > 0.5) return "C - Keep going! I believe in you!";
+    else if (grade > 0.3) return "D - You are on the way there!";
+    else return "F - Hey, everything starts from a poor diet!";
   }
 
   averageCalories() async {
     final prefs = await SharedPreferences.getInstance();
-    cal = prefs.getDouble("Average Calories")!;
-    print(cal);
+    if (prefs.getDouble("Average Calories") != null)
+    {
+      cal = prefs.getDouble("Average Calories")!;
 
-    setState(() {});
+      print(cal);
+      setState(() {});
+    }
+    else{
+      cal = 0;
+    }
   }
+
+
   averageCarbs() async {
     final prefs = await SharedPreferences.getInstance();
-    carbs = prefs.getDouble("Average Carbohydrates")!;
-    print(carbs);
+    if (prefs.getDouble("Average Carbohydrates") != null)
+    {
+      carbs = prefs.getDouble("Average Carbohydrates")!;
 
-    setState(() {});
+      print(carbs);
+      setState(() {});
+    }
+    else{
+      carbs = 0;
+    }
   }
   averageFat() async {
     final prefs = await SharedPreferences.getInstance();
-    fat = prefs.getDouble("Average Fat")!;
-    print(fat);
+    if (prefs.getDouble("Average Fat") != null)
+    {
+      fat = prefs.getDouble("Average Fat")!;
 
-    setState(() {});
+      print(fat);
+      setState(() {});
+    }
+    else{
+      fat = 0;
+    }
   }
   averageCholesterol() async {
     final prefs = await SharedPreferences.getInstance();
-    chol = prefs.getDouble("Average Cholesterol")!;
-    print(chol);
+    if (prefs.getDouble("Average Cholesterol") != null)
+    {
+      chol = prefs.getDouble("Average Cholesterol")!;
 
-    setState(() {});
+      print(chol);
+      setState(() {});
+    }
+    else{
+      chol = 0;
+    }
   }
   averagePotassium() async {
     final prefs = await SharedPreferences.getInstance();
-    pot = prefs.getDouble("Average Potassium")!;
-    print(pot);
+    if (prefs.getDouble("Average Potassium") != null)
+    {
+      pot = prefs.getDouble("Average Potassium")!;
 
-    setState(() {});
+      print(pot);
+      setState(() {});
+    }
+    else{
+      pot = 0;
+    }
   }
   averageSodium() async {
     final prefs = await SharedPreferences.getInstance();
-    sod = prefs.getDouble("Average Sodium")!;
-    print(sod);
-    setState(() {});
+    if (prefs.getDouble("Average Sodium") != null)
+    {
+      sod = prefs.getDouble("Average Sodium")!;
+
+      print(sod);
+      setState(() {});
+    }
+    else{
+      sod = 0;
+    }
   }
   averageProtein() async {
     final prefs = await SharedPreferences.getInstance();
-    pro = prefs.getDouble("Average Protein")!;
-    print(pro);
-    setState(() {});
+    if (prefs.getDouble("Average Protein") != null)
+      {
+        pro = prefs.getDouble("Average Protein")!;
+
+        print(pro);
+        setState(() {});
+      }
+    else{
+      //this occurs if the user never ate anything containing this type
+      pro = 0;
+    }
+
   }
   averageVc() async {
     final prefs = await SharedPreferences.getInstance();
-    vc = prefs.getDouble("Average Vitamin C")!;
-    print(vc);
-    setState(() {});
+    if (prefs.getDouble("Average Vitamin C") != null)
+    {
+      vc = prefs.getDouble("Average Vitamin C")!;
+
+      print(vc);
+      setState(() {});
+    }
+    else{
+      vc = 0;
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -140,7 +218,8 @@ class _AnalyticsState extends State<Analytics> {
                       child: createRoundedCornerContainer(
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children:[Container(
+                          children:[
+                            Container(
                             margin: EdgeInsets.only(top: 10.0, bottom: 30.0, left: 10.0),
                             child: Text("Diet Rating:",
                               style: TextStyle(
@@ -150,29 +229,19 @@ class _AnalyticsState extends State<Analytics> {
                               ),
                             ),
                           ),
+                            Container(
+                              margin: EdgeInsets.only(left: 10.0, right: 10.0),
+                              child: Text(
+                                getLetterGrade(calculateGrade()),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 35.0,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                              ),
+                            )
                           ],
                         ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 10.0, bottom: 30.0),
-                      child: createRoundedCornerContainer(Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 10.0, bottom: 30.0, left: 10.0),
-                            child: Text("Advice:",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 40.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       ),
                     ),
                   ),
@@ -180,95 +249,97 @@ class _AnalyticsState extends State<Analytics> {
               ),
             ),
             Expanded(
-              flex: 50,
-              child: Column(
-                children: [
-                  Text("Average calories: "+cal.toString()+" kCal",
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w300,
+              flex: 35,
+              child: FittedBox(
+                child: Column(
+                  children: [
+                    Text("Average calories: "+cal.toString()+" kCal",
+                      style: TextStyle(
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
+                Text("Average carbohydrates: "+carbs.toString()+" g",
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w300,
                   ),
-              Text("Average carbohydrates: "+carbs.toString()+" g",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w300,
                 ),
-              ),
-              //10: add here
-              Text("Average sodium: " +sod.toString()+" mg",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w300,
+                //10: add here
+                Text("Average sodium: " +sod.toString()+" mg",
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
-              ),
-              Text("Average fat: "+fat.toString()+" g",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w300,
+                Text("Average fat: "+fat.toString()+" g",
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
-              ),
-              Text("Average potassium: "+pot.toString()+" mg",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w300,
+                Text("Average potassium: "+pot.toString()+" mg",
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
-              ),
-              Text("Average cholesterol: "+chol.toString()+" mg",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w300,
+                Text("Average cholesterol: "+chol.toString()+" mg",
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
-              ),
-              Text("Average protein: "+pro.toString()+" g",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w300,
+                Text("Average protein: "+pro.toString()+" g",
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
-              ),
-              Text("Average vitamin c: "+vc.toString()+" mg",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w300,
+                Text("Average vitamin c: "+vc.toString()+" mg",
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
-              ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        FloatingActionButton(
+                            heroTag: null,
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Category())
+                              );
+                            },
+                            child: Icon(Icons.add_a_photo)
+                        ),
+                        Text("Eat Healthy",
+                          style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        FloatingActionButton(
+                            heroTag: null,
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => SelectMealDate())
+                              );
+                            },
+                            child: Icon(Icons.access_time)
+                        ),
+                      ],
+                    )
       ],
+                ),
               ),
             ),
           ],
         )
       ),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FloatingActionButton(
-                heroTag: null,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Category())
-                  );
-                },
-                child: Icon(Icons.add_a_photo)
-            ),
-            Text("Eat Healthy",
-              style: TextStyle(
-                fontSize: 40.0,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            FloatingActionButton(
-                heroTag: null,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SelectMealDate())
-                  );
-                },
-                child: Icon(Icons.access_time)
-            ),
-          ],
-        )
     );
   }
 }

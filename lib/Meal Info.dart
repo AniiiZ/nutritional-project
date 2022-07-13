@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Analytics.dart';
 import 'Basic Widgets.dart';
 import 'Food Dictionary.dart';
 import 'Food info.dart';
-import 'Title_Page.dart';
 class MealInfo extends StatefulWidget {
 
   final String mealID;
@@ -249,7 +249,7 @@ class _MealInfoState extends State<MealInfo> {
                     ElevatedButton(onPressed: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Title_Page())
+                          MaterialPageRoute(builder: (context) => Analytics())
                       );
                     },
                       child: const Icon(Icons.home), )
