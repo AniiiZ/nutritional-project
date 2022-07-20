@@ -122,12 +122,22 @@ class _ClassificationState extends State<Classification> {
   }
   void _imageSelection() async {
     var imageFile = await ImagePicker().getImage(source: ImageSource.gallery).
-    then((value) => _imageClasification(value!));
+    then((value) {
+      if (value != null)
+      {
+        _imageClasification(value!);
+      }
+    });
   }
 
   void _cameraSelection() async {
     var imageFile = await ImagePicker().getImage(source: ImageSource.camera).
-    then((value) => _imageClasification(value!));
+    then((value) {
+      if (value != null)
+        {
+          _imageClasification(value!);
+        }
+    });
   }
 
   void _imageClasification(PickedFile image) async {
